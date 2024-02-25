@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:maderkinkao/app/screens/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,7 +17,6 @@ class MyMainScreen extends StatefulWidget {
 class _MyMainScreenState extends State<MyMainScreen> {
   int currentIndex = 0;
   bool _isAuth = false;
-  GoogleSignInAccount? _currentUser;
   final screens = [
     const MyHomeScreen(),
     const MyProfile(),

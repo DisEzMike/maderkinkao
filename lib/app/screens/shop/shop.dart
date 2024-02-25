@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../../components/side_menu.dart';
 import '../../utils/responsive.dart';
 import 'components/shop_menu.dart';
 

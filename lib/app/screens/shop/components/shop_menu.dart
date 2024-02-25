@@ -1,8 +1,6 @@
 // ignore_for_file: sort_child_properties_last, prefer_const_constructors, unnecessary_new, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,7 +25,6 @@ class _ShopMenuState extends State<ShopMenu> {
   List<Cart> cart_list = [];
   @override
   void initState() {
-    // TODO: implement initState
     menu_list = menus
         .where((element) => element.shopId == int.parse(widget.id))
         .toList();
@@ -42,7 +39,6 @@ class _ShopMenuState extends State<ShopMenu> {
     final shopss =
         shops.where((element) => element.id == int.parse(widget.id)).toList();
     if (shopss.isEmpty) context.pop();
-    Shop shop = shopss[0];
 
     return PopScope(
       canPop: _canPop,
@@ -179,7 +175,6 @@ class _ShopMenuState extends State<ShopMenu> {
   Widget buildTop(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     double coverHeight = 150;
-    double profileHeight = 140;
 
     final shopss =
         shops.where((element) => element.id == int.parse(widget.id)).toList();

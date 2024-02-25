@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:meta/meta.dart';
 
 @immutable
@@ -25,11 +27,11 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['uid'] = this.uid;
-    data['email'] = this.email;
-    data['photoUrl'] = this.photoUrl;
-    data['displayName'] = this.displayName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['uid'] = uid;
+    data['email'] = email;
+    data['photoUrl'] = photoUrl;
+    data['displayName'] = displayName;
     return data;
   }
 }

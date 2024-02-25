@@ -1,13 +1,15 @@
+// ignore_for_file: non_constant_identifier_names
+
 class Menu {
   final String image, name;
   final double price;
   final int id, shopId;
   String? detail = "";
-  dynamic? option = {};
+  dynamic option = {};
 
   Menu(this.id, this.image, this.name,this.detail, this.option, this.price, this.shopId) {
-    this.detail = this.detail == null ? "" : this.detail;
-    this.option = this.option == null ? {} : this.option;
+    detail = detail ?? "";
+    option = option ?? {};
   }
 }
 
