@@ -1,17 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:maderkinkao/app/screens/login/login.dart';
-import 'package:maderkinkao/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/bottombar.dart';
 import 'home.dart';
 import 'profile.dart';
 
-import '../../../auth.dart';
 class MyMainScreen extends StatefulWidget {
   const MyMainScreen({super.key});
 
