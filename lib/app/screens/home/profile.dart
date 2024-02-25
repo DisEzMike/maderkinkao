@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/constants.dart';
 
-import '../../../auth.dart';
+import '../../services/auth.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({super.key});

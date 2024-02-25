@@ -14,7 +14,7 @@ import 'package:maderkinkao/app/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
-import '../../../auth.dart';
+import '../../services/auth.dart';
 
 void main() {
   runApp(

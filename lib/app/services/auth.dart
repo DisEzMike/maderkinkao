@@ -181,7 +181,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'app/models/user.dart';
+import '../models/user.dart';
 
 /// The scopes required by this application.
 // #docregion Initialize
