@@ -1,0 +1,50 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "maderkinkao",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "maderkinkao (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "maderkinkao (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "Chrome",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "chrome",
+            "args": [
+                "--web-port",
+                "5000"
+            ]
+        },
+        {
+            "name": "iPhone Xʀ (Simulator)",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "640F708F-DDBA-42FA-9A57-35CE1D8506BC"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "All devices",
+            "configurations": [
+                "Chrome",
+                "iPhone Xʀ (Simulator)"
+            ]
+        }
+    ]
+}
