@@ -55,7 +55,7 @@ double profileHeight = 140;
           buildTop(context),
           buildContent(context)
         ],
-      ) : Loading(),
+      ) : const Loading(),
     );
   }
 
@@ -108,7 +108,7 @@ double profileHeight = 140;
 
             Positioned(
               top: coverHeight + profileHeight / 2,
-              child: Text("${_currentUser?.displayName}", style: GoogleFonts.kanit(textStyle: TextStyle(fontSize: kDefaultFontSize * 1.5, fontWeight: FontWeight.w400)),),
+              child: Text("${_currentUser?.displayName}", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize * 1.5, fontWeight: FontWeight.w400)),),
             ),
           ],
     );
@@ -117,13 +117,13 @@ double profileHeight = 140;
   Widget buildContent(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Center(
-      child: Container(
+      child: SizedBox(
         height: _size.height - coverHeight - profileHeight,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.all(kDefaultPadding+kDefaultPadding/4),
+              padding: const EdgeInsets.all(kDefaultPadding+kDefaultPadding/4),
               child: GestureDetector(
                           onTap: signOut,
                           child: DecoratedBox(

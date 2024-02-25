@@ -60,7 +60,7 @@ class MenuCard extends StatelessWidget {
                           ),
                           Expanded(
                               flex: 5,
-                              child: Container(
+                              child: SizedBox(
                                 height: 125,
                                 // color: Colors.red,
                                 child: Column(

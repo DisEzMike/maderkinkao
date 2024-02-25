@@ -36,7 +36,7 @@ class MyLoginPage extends StatefulWidget {
 
 class _MyLoginPageState extends State<MyLoginPage> {
   GoogleSignInAccount? _currentUser;
-  bool _isAuthorized = false; // has granted permissions?
+  final bool _isAuthorized = false; // has granted permissions?
 
   @override
   void initState() {

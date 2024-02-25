@@ -51,10 +51,10 @@ class _MyCartState extends State<MyCart> {
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding, vertical: kDefaultPadding/2),
-              physics: AlwaysScrollableScrollPhysics(),
+              physics: const AlwaysScrollableScrollPhysics(),
               children: [
                 const SizedBox(height: kDefaultPadding),
-                Text("รายการอาหาร", style: GoogleFonts.kanit(textStyle: TextStyle(fontSize: kDefaultFontSize*1.2, fontWeight: FontWeight.w600)),),
+                Text("รายการอาหาร", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.2, fontWeight: FontWeight.w600)),),
                 const SizedBox(height: kDefaultPadding),
                 ...menu_items.map((e) => CartCard(data: e)).toList(),
                 const SizedBox(height: kDefaultPadding),
@@ -98,7 +98,7 @@ Widget buildCart(BuildContext context) {
       ),
       child: Container(
               color: Colors.white,
-              padding: EdgeInsets.all(kDefaultPadding+kDefaultPadding/4),
+              padding: const EdgeInsets.all(kDefaultPadding+kDefaultPadding/4),
               child: GestureDetector(
                 onTap: () {
                   print(menu_items);
@@ -122,9 +122,9 @@ Widget buildCart(BuildContext context) {
                                 borderRadius: BorderRadius.circular(kDefaultPadding)
                                 // border: Border.all(color: Colors.grey.shade300)
                               ),
-                              child: Text('${count}', style: GoogleFonts.kanit(textStyle: TextStyle(fontSize: kDefaultFontSize*1.2, fontWeight: FontWeight.w500)),),
+                              child: Text('${count}', style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.2, fontWeight: FontWeight.w500)),),
                             ),
-                            SizedBox(width: kDefaultPadding/1.5),
+                            const SizedBox(width: kDefaultPadding/1.5),
                             Text("สั่งซื้อ", style: GoogleFonts.kanit(textStyle: const TextStyle(color: Colors.white, fontSize: kDefaultFontSize*1.3, fontWeight: FontWeight.w600)))
                           ],
                         ),

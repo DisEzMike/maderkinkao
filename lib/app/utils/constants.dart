@@ -15,7 +15,7 @@ const kGrayColor = Color(0xFF8793B2);
 const kTitleTextColor = Color(0xFF30384D);
 const kTextColor = Color(0xFF4D5875);
 
-final gNavTextStyle = GoogleFonts.kanit(textStyle: TextStyle(letterSpacing: 1.2, color: Colors.deepOrange));
+final gNavTextStyle = GoogleFonts.kanit(textStyle: const TextStyle(letterSpacing: 1.2, color: Colors.deepOrange));
 const gNavBoxDecoration = BoxDecoration(boxShadow: <BoxShadow>[
   BoxShadow(
     color: Colors.black,

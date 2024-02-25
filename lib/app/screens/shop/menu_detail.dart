@@ -24,7 +24,6 @@ class _MenuDetailState extends State<MenuDetail> {
   dynamic option = {};
   @override
   void initState() {
-    // TODO: implement initState
     menu = menus.where((element) => element.id == int.parse(widget.id)).toList()[0];
     super.initState();
   }
@@ -189,7 +188,7 @@ class _MenuDetailState extends State<MenuDetail> {
 
   Widget buildCart(BuildContext context) {
     return Container(
-            padding: EdgeInsets.only(bottom: kDefaultPadding),
+            padding: const EdgeInsets.only(bottom: kDefaultPadding),
             child: Column(
               children: [
                 Padding(
