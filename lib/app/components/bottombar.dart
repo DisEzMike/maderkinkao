@@ -12,7 +12,7 @@ class MyBottomBar extends StatelessWidget {
   final List list = [
     {"icon" : Icons.home, "text": "หน้าแรก"},
     {"icon" : Icons.person, "text": "โปรไฟล์"},
-    {"icon" : Icons.login, "text": "login"},
+    // {"icon" : Icons.login, "text": "login"},
   ];
 
   @override

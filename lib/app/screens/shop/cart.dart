@@ -100,7 +100,9 @@ Widget buildCart(BuildContext context) {
               color: Colors.white,
               padding: EdgeInsets.all(kDefaultPadding+kDefaultPadding/4),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  print(menu_items);
+                },
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: Colors.deepOrange.shade500,
