@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:maderkinkao/app/components/loading.dart';
 import 'package:maderkinkao/app/models/user.dart';
 import 'package:maderkinkao/app/utils/authentication.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,7 +38,7 @@ class MyLoginPage extends StatefulWidget {
 class _MyLoginPageState extends State<MyLoginPage> {
   GoogleSignInAccount? _currentUser;
   final bool _isAuthorized = false; // has granted permissions?
-
+  bool _isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -81,6 +82,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
   }
 
   void _handdleSignInWithGoogle() async {
+    setState(() {
+      _isLoading = true;
+    });
     var account = await Authentication.signInWithGoogle();
 
   bool isAuthorized = account != null;
@@ -104,44 +108,16 @@ class _MyLoginPageState extends State<MyLoginPage> {
   }
 }
 
-    Widget buildBody() {
-    final GoogleSignInAccount? user = _currentUser;
-    if (user != null) {
-      // The user is Authenticated
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          ListTile(
-            leading: GoogleUserCircleAvatar(
-              identity: user,
-            ),
-            title: Text(user.displayName ?? ''),
-            subtitle: Text(user.email),
-          ),
-          const Text('Signed in successfully.'),
-          if (!_isAuthorized) ...<Widget>[
-            // The user has NOT Authorized all required scopes.
-            // (Mobile users may never see this button!)
-            const Text('Additional permissions needed to read your contacts.'),
-          ],
-          const ElevatedButton(
-            onPressed: handleSignOut,
-            child: Text('SIGN OUT'),
-          ),
-        ],
-      );
-    } else {
-      // The user is NOT Authenticated
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SignInButton(
-              buttonType: ButtonType.google,
-              onPressed: _handdleSignInWithGoogle)
-          ],
-        ),
-      );
-    }
-  }
+  Widget buildBody() {
+    return Center(
+    child: _isLoading ? Loading() : Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        SignInButton(
+          buttonType: ButtonType.google,
+          onPressed: _handdleSignInWithGoogle),
+      ],
+    ),
+  );
+}
 }
