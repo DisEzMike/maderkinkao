@@ -22,9 +22,12 @@ class _MenuDetailState extends State<MenuDetail> {
   int addon = 0;
   double coverHeight = 300;
   dynamic option = {};
+  bool isbtnActivate = false;
+  TextEditingController? _controller;
   @override
   void initState() {
     menu = menus.where((element) => element.id == int.parse(widget.id)).toList()[0];
+    _controller = TextEditingController();
     super.initState();
   }
 
@@ -170,11 +173,12 @@ class _MenuDetailState extends State<MenuDetail> {
                 Text("เพิ่มเติม", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize * 1.1, fontWeight: FontWeight.w600)),),
                 Card(
                   color: Colors.grey.shade200,
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: _controller,
                       maxLines: 2, //or null 
-                      decoration: InputDecoration.collapsed(hintText: "เพิ่มเติม..."),
+                      decoration: const InputDecoration.collapsed(hintText: "เพิ่มเติม..."),
                     ),
                   )
                 )
@@ -233,7 +237,7 @@ class _MenuDetailState extends State<MenuDetail> {
 
                       Expanded(
                         child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: validCheck() ? () {
                                 List<dynamic> option_addon = [];
                                 if (menu.option.toString() != "{}") option_addon = menu.option['item'].map((e) => option[e['id']] == 1 ? e : null).toList().where((e) => e != null).toList();
 
@@ -244,8 +248,9 @@ class _MenuDetailState extends State<MenuDetail> {
                                 //   "count": count,
                                 //   "price" : (menu.price + addon)
                                 // };
-                                context.pop(Cart(menu.id, option_addon, "", count, (menu.price + addon)));
-                              },
+                                context.pop(Cart(menu.id, option_addon, _controller?.text ?? "", count, (menu.price + addon)));
+
+                              } : null,
                               child: Padding(
                                 padding: const EdgeInsets.all(kDefaultPadding),
                                 child: Row(
@@ -263,5 +268,11 @@ class _MenuDetailState extends State<MenuDetail> {
                 )
             ],),
           );
+  }
+
+  bool validCheck() {
+    if (menu.option.toString() == '{}') return true;
+    final max = menu.option['max'];
+    return count_checked == max;
   }
 }

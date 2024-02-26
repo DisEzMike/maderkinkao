@@ -89,7 +89,13 @@ class _ShopMenuState extends State<ShopMenu> {
                       FloatingActionButton(
                         // Your actual Fab
                         onPressed: () {
-                          context.push('/cart', extra: cart_list);
+                          context.push('/cart', extra: cart_list).then((data) => {
+                            if (data != null) {
+                              setState(() {
+                                cart_list = data as List<Cart>;
+                              })
+                            }
+                          });
                         },
                         child: Icon(Icons.shopping_basket_rounded),
                         backgroundColor: Colors.white,

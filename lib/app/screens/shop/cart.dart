@@ -1,7 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:maderkinkao/app/utils/methods.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../models/cart.dart';
+import '../../models/user.dart';
+import '../../services/auth.dart';
 import '../../utils/constants.dart';
 import 'components/cart_card.dart';
 
@@ -18,17 +25,83 @@ class _MyCartState extends State<MyCart> {
   int count = 0;
   double 
   total = 0;
+
+  User? _currentUser;
+  bool _isAuth = false;
   @override
   void initState() {
-    getData();
     super.initState();
+
+    SharedPreferences.getInstance().then((prefs) async {
+      String? userId = prefs.getString('userId');
+      if (userId != null) {
+        final _user = await getUser(userId);
+        setState(() {
+          _currentUser = _user;
+          _isAuth = true;
+        });
+      } else {
+        handleSignOut();
+        context.pushReplacement('/login');
+      }
+    });    
+
+    getData();
+  }
+
+  void _purchase() {
+    print("clicked");
+    final database = FirebaseFirestore.instance;
+    final ref = database.collection('shops');
+
+    final now = DateTime.now();
+    ref.doc("${menu_items[0].shopId}").collection('orders').orderBy('queue', descending: false).get().then((orders) {
+      final sameDayOrders = orders.docs.where((element) {
+        final data = element.data();
+        final createdAt_date = (data['createdAt'] as Timestamp).toDate();
+        
+        return createdAt_date.isSameDate(now);
+      });
+
+      int queue = 1;
+
+      if (sameDayOrders.isNotEmpty) {
+        final lastOrder = sameDayOrders.last.data();
+        if (lastOrder != null) queue = int.parse("${lastOrder['queue']}") + 1;
+      }
+      var uuid = Uuid();
+      var id = uuid.v4();
+      dynamic payload = {
+        "id": id,
+        "shopId": menu_items[0].shopId,
+        "createdAt": Timestamp.fromDate(now),
+        "data": menu_items.map((e) => e.toJson()),
+        "price": total,
+        "userId": _currentUser!.uid,
+        "status": 0,
+        "queue": queue
+      };
+      
+      
+      ref.doc("${menu_items[0].shopId}").collection('orders').doc(id).set(payload).then((_) => {
+        setState(() {
+          menu_items = [];
+        }),
+        context.pop(menu_items)
+      }).catchError((e) {
+      print(e);   
+    });
+    }).catchError((e) {
+      print(e);   
+    });
+
   }
 
   getData() {
     menu_items = widget.items;
     menu_items.forEach((element) { 
-      count += element.count;
-      total += element.price * element.count;
+      count += element.count!;
+      total += element.price! * element.count!;
     });
   }
 
@@ -100,9 +173,7 @@ Widget buildCart(BuildContext context) {
               color: Colors.white,
               padding: const EdgeInsets.all(kDefaultPadding+kDefaultPadding/4),
               child: GestureDetector(
-                onTap: () {
-                  print(menu_items);
-                },
+                onTap: () => _purchase(),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: Colors.deepOrange.shade500,
@@ -137,5 +208,4 @@ Widget buildCart(BuildContext context) {
             ),
     );
   }
-
 }

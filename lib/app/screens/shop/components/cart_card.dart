@@ -11,7 +11,7 @@ class CartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> addon = data.addon;
+    List<dynamic> addon = data.addon!;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -29,7 +29,7 @@ class CartCard extends StatelessWidget {
                     child: Text('${data.count}', style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.2, fontWeight: FontWeight.w500)),),
                   ),
                   const SizedBox(width: kDefaultPadding),
-                  Text("${data.menu.name}", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.2, fontWeight: FontWeight.w400)))
+                  Text("${data.menu?.name}", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.2, fontWeight: FontWeight.w400)))
                 ],
               ),
               ...addon.map((e) => Row(
@@ -38,10 +38,30 @@ class CartCard extends StatelessWidget {
                   Text("+${e['price']} ${e['name']}", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.2, fontWeight: FontWeight.w400)))
                 ],
               )),
-              
+              if (data.comment!.isNotEmpty) ...[
+                const SizedBox(height: kDefaultPadding/2),
+                Row(
+                  children: [
+                    const SizedBox(width: kDefaultPadding),
+                      SizedBox(
+                        width: kDefaultPadding*4,
+                        child: Text("(เพิ่มเติม)", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.1, fontWeight: FontWeight.w600)))
+                      )
+                  ],
+                ),
+                Row(
+                  children: [
+                    const SizedBox(width: kDefaultPadding),
+                      SizedBox(
+                        width: kDefaultPadding*4,
+                        child: Text("${data.comment}", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.1, fontWeight: FontWeight.w400)))
+                      )
+                  ],
+                )
+              ]
             ],
           ),
-          Text("${(data.price * data.count).toStringAsFixed(2)} บาท", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.2, fontWeight: FontWeight.w500)))
+          Text("${(data.price! * data.count!).toStringAsFixed(2)} บาท", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.2, fontWeight: FontWeight.w500)))
         ],
       ),
     );
