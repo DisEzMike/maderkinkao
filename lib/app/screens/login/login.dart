@@ -11,8 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:maderkinkao/app/models/user.dart';
+import 'package:maderkinkao/app/utils/authentication.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sign_in_button/sign_in_button.dart';
+import 'package:sign_button/sign_button.dart';
 
 import '../../services/auth.dart';
 
@@ -42,49 +43,31 @@ class _MyLoginPageState extends State<MyLoginPage> {
   void initState() {
     super.initState();
 
-    SharedPreferences.getInstance().then((value) => {
-      if (value.getBool('auth') ?? false) {
-        // context.push('/home')
-      }
-    });
+    // googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) async {
 
-    googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) async {
+    //   bool isAuthorized = account != null;
 
-      bool isAuthorized = account != null;
+    //   if (kIsWeb && account != null) {
+    //     isAuthorized = await googleSignIn.canAccessScopes(scopes);
 
-      if (kIsWeb && account != null) {
-        isAuthorized = await googleSignIn.canAccessScopes(scopes);
-
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setBool('auth', isAuthorized);
+      //   SharedPreferences prefs = await SharedPreferences.getInstance();
+      //   prefs.setBool('auth', isAuthorized);
     
-        User user = User(uid: account.id, email: account.email, photoUrl: account.photoUrl, displayName: account.displayName);
-        FirebaseFirestore database = FirebaseFirestore.instance;
-        CollectionReference ref = database.collection('users');
-        ref.doc(user.uid).get().then((DocumentSnapshot snapshot) {
-          if (snapshot.exists) return;
-          dynamic data = user.toJson();
-          data['role'] = 'user';
-          ref.doc(user.uid!).set(data);
-        });
-        prefs.setString('userId', user.uid!);
-      }
-
-
-      // setState(() {
-      //   _currentUser = account;
-      //   _isAuthorized = isAuthorized;
-      // });
-      
-
-      // Now that we know that the user can access the required scopes, the app
-      // can call the REST API.
-      if (isAuthorized) {
-        
-        context.pushReplacement('/home');
-      }
-    });
-    // googleSignIn.signInSilently();
+      //   User user = User(uid: account.id, email: account.email, photoUrl: account.photoUrl, displayName: account.displayName);
+      //   FirebaseFirestore database = FirebaseFirestore.instance;
+      //   CollectionReference ref = database.collection('users');
+      //   ref.doc(user.uid).get().then((DocumentSnapshot snapshot) {
+      //     if (snapshot.exists) return;
+      //     dynamic data = user.toJson();
+      //     data['role'] = 'user';
+      //     ref.doc(user.uid!).set(data);
+      //   });
+      //   prefs.setString('userId', user.uid!);
+      // }
+      // if (isAuthorized) {
+      //   context.pushReplacement('/home');
+      // }
+    // });
   }
   @override
   Widget build(BuildContext context) {
@@ -97,6 +80,30 @@ class _MyLoginPageState extends State<MyLoginPage> {
           child: buildBody(),
         ));
   }
+
+  void _handdleSignInWithGoogle() async {
+    var account = await Authentication.signInWithGoogle();
+
+  bool isAuthorized = account != null;
+  if (account != null) {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('auth', isAuthorized);
+
+    User user = User(uid: account?.uid, email: account?.email, photoUrl: account?.photoURL, displayName: account?.displayName);
+    FirebaseFirestore database = FirebaseFirestore.instance;
+    CollectionReference ref = database.collection('users');
+    ref.doc(user.uid).get().then((DocumentSnapshot snapshot) {
+      if (snapshot.exists) return;
+      dynamic data = user.toJson();
+      data['role'] = 'user';
+      ref.doc(user.uid!).set(data);
+    });
+    prefs.setString('userId', user.uid!);
+  }
+  if (isAuthorized) {
+    context.pushReplacement('/home');
+  }
+}
 
     Widget buildBody() {
     final GoogleSignInAccount? user = _currentUser;
@@ -126,15 +133,16 @@ class _MyLoginPageState extends State<MyLoginPage> {
       );
     } else {
       // The user is NOT Authenticated
-      return const Center(
+      return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SignInButton(Buttons.google, onPressed: handleSignIn),
+            SignInButton(
+              buttonType: ButtonType.google,
+              onPressed: _handdleSignInWithGoogle)
           ],
         ),
       );
     }
   }
-
 }

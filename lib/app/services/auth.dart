@@ -13,8 +13,6 @@ const List<String> scopes = <String>[
 
 
 final googleSignIn = GoogleSignIn(
-  // Optional clientId
-  // clientId: 'your-client_id.apps.googleusercontent.com',
   scopes: scopes,
 );
 // #enddocregion Initialize
@@ -24,13 +22,6 @@ final googleSignIn = GoogleSignIn(
   // On the web, the on-click handler of the Sign In button is owned by the JS
   // SDK, so this method can be considered mobile only.
   // #docregion SignIn
-  Future<void> handleSignIn() async {
-    try {
-      await googleSignIn.signIn();
-    } catch (error) {
-      print(error);
-    }
-  }
   // #enddocregion SignIn
 
   // Prompts the user to authorize `scopes`.
