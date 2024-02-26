@@ -8,14 +8,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:maderkinkao/app/components/loading.dart';
 import 'package:maderkinkao/app/models/user.dart';
 import 'package:maderkinkao/app/utils/authentication.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_button/sign_button.dart';
-
-import '../../services/auth.dart';
 
 void main() {
   runApp(
@@ -36,8 +33,6 @@ class MyLoginPage extends StatefulWidget {
 }
 
 class _MyLoginPageState extends State<MyLoginPage> {
-  GoogleSignInAccount? _currentUser;
-  final bool _isAuthorized = false; // has granted permissions?
   bool _isLoading = false;
   @override
   void initState() {
@@ -110,7 +105,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   Widget buildBody() {
     return Center(
-    child: _isLoading ? Loading() : Column(
+    child: _isLoading ? const Loading() : Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         SignInButton(

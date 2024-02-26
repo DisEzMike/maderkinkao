@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers, unused_local_variable
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/responsive.dart';

@@ -27,7 +27,6 @@ class _MyCartState extends State<MyCart> {
   total = 0;
 
   User? _currentUser;
-  bool _isAuth = false;
   @override
   void initState() {
     super.initState();
@@ -38,7 +37,6 @@ class _MyCartState extends State<MyCart> {
         final _user = await getUser(userId);
         setState(() {
           _currentUser = _user;
-          _isAuth = true;
         });
       } else {
         handleSignOut();
@@ -67,9 +65,9 @@ class _MyCartState extends State<MyCart> {
 
       if (sameDayOrders.isNotEmpty) {
         final lastOrder = sameDayOrders.last.data();
-        if (lastOrder != null) queue = int.parse("${lastOrder['queue']}") + 1;
+        queue = int.parse("${lastOrder['queue']}") + 1;
       }
-      var uuid = Uuid();
+      var uuid = const Uuid();
       var id = uuid.v4();
       dynamic payload = {
         "id": id,
@@ -88,12 +86,10 @@ class _MyCartState extends State<MyCart> {
           menu_items = [];
         }),
         context.pop(menu_items)
-      }).catchError((e) {
-      print(e);   
-    });
-    }).catchError((e) {
-      print(e);   
-    });
+      // ignore: invalid_return_type_for_catch_error
+      }).catchError((e) => print(e));
+    // ignore: invalid_return_type_for_catch_error
+    }).catchError((e) => print(e));
 
   }
 
