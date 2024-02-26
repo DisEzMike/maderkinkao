@@ -27,23 +27,19 @@ double profileHeight = 140;
   void initState() {
     super.initState();
 
-    SharedPreferences.getInstance().then((prefs) {
+    SharedPreferences.getInstance().then((prefs) async {
       String? userId = prefs.getString('userId');
       if (userId != null) {
-        getUser(userId).then((_user) {
-          setState(() {
-            _currentUser = _user;
-            _isAuth = true;
-          });
+        final _user = await getUser(userId);
+        setState(() {
+          _currentUser = _user;
+          _isAuth = true;
         });
-        print(_currentUser);
       } else {
         handleSignOut();
         context.pushReplacement('/login');
       }
     });
-
-    // print(_currentUser);
   }
 
   @override
