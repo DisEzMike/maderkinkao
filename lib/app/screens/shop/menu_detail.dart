@@ -7,10 +7,10 @@ import '../../models/menu.dart';
 import '../../utils/constants.dart';
 
 class MenuDetail extends StatefulWidget {
-  const MenuDetail({super.key, required this.id});
+  const MenuDetail({super.key, required this.id, this.viewOnly = false});
 
   final id;
-
+  final bool viewOnly;
   @override
   State<MenuDetail> createState() => _MenuDetailState();
 }
@@ -20,7 +20,7 @@ class _MenuDetailState extends State<MenuDetail> {
   int count_checked = 0;
   int count = 1;
   int addon = 0;
-  double coverHeight = 300;
+  double coverHeight = 250;
   dynamic option = {};
   bool isbtnActivate = false;
   TextEditingController? _controller;
@@ -48,14 +48,16 @@ class _MenuDetailState extends State<MenuDetail> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        // backgroundColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
+        leading: BackButton(color: Colors.white,),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           buildTop(context),
+          const SizedBox(height: kDefaultPadding*2),
           Container(child: buildBody(context)),
-          buildCart(context)
+          if (!widget.viewOnly) buildCart(context)
         ],
       ),
     );
@@ -63,10 +65,6 @@ class _MenuDetailState extends State<MenuDetail> {
 
   Widget buildTop(BuildContext context) {
      Size _size = MediaQuery.of(context).size;
-    // final shopss = shops.where((element) => element.id == int.parse(widget.id)).toList();
-    // if (shopss.isEmpty) context.pop();
-    // Shop shop = shopss[0];
-
     return Stack(
         clipBehavior: Clip.none,
         alignment: Alignment.center,
@@ -97,38 +95,16 @@ class _MenuDetailState extends State<MenuDetail> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(height: kDefaultPadding * 1.5),
-                        // SizedBox(width: _size.width, child: const Divider(),),
                       ],),
                     ),
                   ),
                 ),
 
-
-            // Positioned(
-            //   top: coverHeight - profileHeight / 2 - 20,
-            //   child: CircleAvatar(
-            //     radius: profileHeight / 2 + 10,
-            //     backgroundColor: Colors.white,
-            //     child: CircleAvatar(
-            //       radius: profileHeight / 2,
-            //       backgroundColor: Colors.grey.shade800,
-            //       backgroundImage: AssetImage("assets/images/image.jpg"),
-            //     ),
-            //   ),
-            // ),
-
             Positioned(
               top: coverHeight,
-              // height: _size.height,
               child: Column(
                 children: [
-                  // Text("${shop.name}", style: GoogleFonts.kanit(textStyle: TextStyle(fontSize: kDefaultFontSize * 2, fontWeight: FontWeight.w500)),),
                   SizedBox(width: _size.width - kDefaultPadding, child: Text("${menu.name}", style: GoogleFonts.kanit(textStyle : const TextStyle(fontSize: kDefaultFontSize*2,fontWeight: FontWeight.w500)),)),
-                  // SizedBox(width: _size.width - kDefaultPadding,child: 
-                  //   Text("${menu.detail}", style: GoogleFonts.kanit(textStyle: const TextStyle(fontWeight: FontWeight.w300)),)
-                  // ),
-                  // const SizedBox(height: kDefaultPadding,),
-                  // SizedBox(width: _size.width - kDefaultPadding, child: const Divider(),),
                 ],
               ),
             ),
@@ -139,12 +115,12 @@ class _MenuDetailState extends State<MenuDetail> {
   Widget buildBody(BuildContext context) {
     return Expanded(
       child: ListView(
-        padding: const EdgeInsets.only(top: kDefaultPadding*2),
+        padding: const EdgeInsets.only(top: kDefaultPadding),
         physics: const AlwaysScrollableScrollPhysics(),
         children: [
           if (menu.option.toString() != "{}") ...menu.option['item'].map((e) => 
             CheckboxListTile(
-              enabled: option[e['id']] == 1 || count_checked < int.parse(menu.option['max'].toString()),
+              enabled: !widget.viewOnly && (option[e['id']] == 1 || count_checked < int.parse(menu.option['max'].toString())),
               title: Text("${e['name']} +${e['price']}"),
               value: option[e['id']] == 1,
               onChanged: (value) => {
@@ -164,7 +140,7 @@ class _MenuDetailState extends State<MenuDetail> {
             )
           ).toList(),
 
-          Padding(
+          if (!widget.viewOnly) Padding(
             padding: const EdgeInsets.all(kDefaultPadding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

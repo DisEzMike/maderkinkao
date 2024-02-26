@@ -33,7 +33,7 @@ class AppRoutes {
             path: ":menuId",
             pageBuilder:(context, state) => CustomTransitionPage(
             key: state.pageKey,
-            child: MenuDetail(id: state.pathParameters['menuId']),
+            child: MenuDetail(id: state.pathParameters['menuId'], viewOnly: state.extra as bool),
             transitionsBuilder:(context, animation, secondaryAnimation, child) => SlideTransition(position: Tween<Offset>(begin: const Offset(0,1), end: Offset.zero).animate(animation), child: child,),
             ),
           ),

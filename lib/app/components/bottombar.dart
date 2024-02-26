@@ -11,22 +11,34 @@ class MyBottomBar extends StatelessWidget {
 
   final List list = [
     {"icon" : Icons.home, "text": "หน้าแรก"},
-    {"icon" : Icons.person, "text": "โปรไฟล์"},
-    // {"icon" : Icons.login, "text": "login"},
+    {"icon" : Icons.storefront, "text": "หน้าร้านค้า"},
+    {"icon" : Icons.menu, "text": "เมนู"},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Container(
-          color: Colors.deepOrange.shade500,
+          // color: Colors.white,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: const [
+              BoxShadow(
+              color: Colors.grey,
+              offset: Offset(0, 5),
+              blurRadius: 10,
+              spreadRadius: 5,
+              )
+            ]
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding/2, vertical: kDefaultPadding),
             child: GNav(
                 onTabChange: onTabChange,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 // backgroundColor: Colors.deepOrange,
-                color: Colors.white,
+                color: Colors.grey.shade500,
                 activeColor: Colors.deepOrange.shade500,
+                tabActiveBorder: Border.all(color: Colors.deepOrange.shade500),
                 tabBackgroundColor: Colors.white,
                 gap: 10,
                 padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding*1.5, vertical: kDefaultPadding),

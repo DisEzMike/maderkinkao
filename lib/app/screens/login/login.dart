@@ -118,7 +118,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   void test() {
     FirebaseFirestore.instance.collection('shops').doc('1').collection('orders').orderBy('queue', descending: false).get().then((docs) {
-      var data = docs.docs.map((e) => e.data()['queue']);
+      var data = docs.docs.map((e) => [e.data()['queue'], (e.data()['createdAt'] as Timestamp).toDate()]);
       print(data);
     });
   }

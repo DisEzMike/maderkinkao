@@ -11,9 +11,10 @@ import '../../../utils/constants.dart';
 import 'menu_card.dart';
 
 class ShopMenu extends StatefulWidget {
-  const ShopMenu({super.key, required this.id});
+  const ShopMenu({super.key, required this.id,});
 
   final id;
+  final viewOnly = false;
 
   @override
   State<ShopMenu> createState() => _ShopMenuState();
@@ -29,6 +30,29 @@ class _ShopMenuState extends State<ShopMenu> {
         .where((element) => element.shopId == int.parse(widget.id))
         .toList();
     super.initState();
+  }
+
+  _showDialog() {
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('AlertDialog Title'),
+        content: const Text('AlertDialog description'),
+        backgroundColor: Colors.white,
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => context.pop('Cancel'),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              context.pop('OK');
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -47,38 +71,21 @@ class _ShopMenuState extends State<ShopMenu> {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           leading: BackButton(
-            onPressed: () async {
+            color: Colors.white,
+            onPressed: () {
               if (cart_list.isEmpty) {
                 _canPop = true;
                 return context.pop();
               }
-              final result = await showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('AlertDialog Title'),
-                  content: const Text('AlertDialog description'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => context.pop('Cancel'),
-                      child: const Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        context.pop('OK');
-                      },
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
-
-              if (result == "OK") {
-                _canPop = true;
-                context.pop();
-              }
+              _showDialog().then((String result) {
+                if (result == "OK") {
+                  _canPop = true;
+                  context.pop();
+                }
+              });
             },
           ),
-          // backgroundColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
         ),
         floatingActionButton: cart_list.isNotEmpty
             ? Container(
@@ -129,6 +136,7 @@ class _ShopMenuState extends State<ShopMenu> {
               )
             : null,
         body: ListView(
+          padding: EdgeInsets.only(top: 0),
           physics: AlwaysScrollableScrollPhysics(),
           children: [
             buildTop(context),
@@ -153,11 +161,11 @@ class _ShopMenuState extends State<ShopMenu> {
                           score: 4.3,
                           review: 100,
                           press: () async {
-                            final Cart? data = (await context
-                                .push("/shop/${widget.id}/${e.id}")) as Cart?;
+                            final Cart? data = (await context.push("/shop/${widget.id}/${e.id}", extra: false)) as Cart?;
                             if (data != null) cart_list.add(data);
                           },
                           isLast: e == menu_list.last,
+                          viewOnly: widget.viewOnly,
                         ))
                   else
                     SizedBox(
@@ -180,7 +188,7 @@ class _ShopMenuState extends State<ShopMenu> {
 
   Widget buildTop(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    double coverHeight = 150;
+    double coverHeight = 200;
 
     final shopss =
         shops.where((element) => element.id == int.parse(widget.id)).toList();

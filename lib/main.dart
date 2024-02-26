@@ -32,6 +32,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Maderkinkao",
       theme: ThemeData(
+        dialogBackgroundColor: Colors.white,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange.shade500, primary: Colors.deepOrange.shade500) ,
         textTheme: GoogleFonts.kanitTextTheme(textTheme).copyWith(
           bodyMedium: GoogleFonts.oswald(textStyle: textTheme.bodyMedium),
         ),

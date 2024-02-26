@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:maderkinkao/app/screens/login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/bottombar.dart';
+import '../store/components/profile.dart';
 import 'home.dart';
 import 'profile.dart';
 
@@ -19,8 +19,8 @@ class _MyMainScreenState extends State<MyMainScreen> {
   bool _isAuth = false;
   final screens = [
     const MyHomeScreen(),
+    const StoreProfile(),
     const MyProfile(),
-    const MyLoginPage()
     // const GoogleSignIn(),
   ];
 

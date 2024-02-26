@@ -14,6 +14,7 @@ class MenuCard extends StatelessWidget {
       required this.review,
       this.isLast = false,
       required this.press,
+      this.viewOnly = false,
       });
 
   final bool isLast;
@@ -21,7 +22,7 @@ class MenuCard extends StatelessWidget {
   final VoidCallback press;
   final double score;
   final int review;
-
+  final bool viewOnly;
   @override
   Widget build(BuildContext context) {
     //  Here the shadow is not showing properly
@@ -84,7 +85,7 @@ class MenuCard extends StatelessWidget {
                                               fontSize: kDefaultFontSize * 1.2,
                                               fontWeight: FontWeight.w500),)
                                         ),
-                                          IconButton(onPressed: () {}, icon: Icon(Icons.add_circle_outline))
+                                          if (!viewOnly) Icon(Icons.add_circle_outline, size: kDefaultFontSize*1.5, color: Colors.black,)
                                         ],
                                       ),
                                     ),
