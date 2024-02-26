@@ -6,7 +6,6 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -89,7 +88,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('auth', isAuthorized);
 
-    User user = User(uid: account?.uid, email: account?.email, photoUrl: account?.photoURL, displayName: account?.displayName);
+    User user = User(uid: account.uid, email: account.email, photoUrl: account.photoURL, displayName: account.displayName);
     FirebaseFirestore database = FirebaseFirestore.instance;
     CollectionReference ref = database.collection('users');
     ref.doc(user.uid).get().then((DocumentSnapshot snapshot) {
