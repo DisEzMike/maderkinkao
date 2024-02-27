@@ -1,6 +1,7 @@
 // ignore_for_file: unused_local_variable
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:maderkinkao/app/screens/settings/screens/add_store.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/cart.dart';
@@ -40,13 +41,23 @@ class AppRoutes {
         ]
         ),
         GoRoute(
-            path: "/cart",
-            pageBuilder:(context, state) => CustomTransitionPage(
-            key: state.pageKey,
-            child: MyCart(items: state.extra as List<Cart>),
-            transitionsBuilder:(context, animation, secondaryAnimation, child) => SlideTransition(position: Tween<Offset>(begin: const Offset(0,1), end: Offset.zero).animate(animation), child: child,),
-            ),
-          )
+          path: "/cart",
+          pageBuilder:(context, state) => CustomTransitionPage(
+          key: state.pageKey,
+          child: MyCart(items: state.extra as List<Cart>),
+          transitionsBuilder:(context, animation, secondaryAnimation, child) => SlideTransition(position: Tween<Offset>(begin: const Offset(0,1), end: Offset.zero).animate(animation), child: child,),
+          ),
+        ),
+        GoRoute(
+          path: '/admin',
+          builder: (context, state) => const Placeholder(),
+          routes: [
+            GoRoute(
+              path: 'shop/add',
+              builder: (context, state) => const AddStorePage(),
+            )
+          ]
+        )
     ],
 
     redirect: (context, state) async {

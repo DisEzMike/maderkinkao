@@ -28,7 +28,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
   List cards = [
     {"icon": Icons.history, "title": "ประวัติการสั่งซื้อ", "path": '/user/history'},
     {"icon": Icons.add, "title": "เพิ่มร้านค้า", "path": '/admin/shop/add'},
-    {"icon": Icons.storefront, "title": "แก้ไขร้านค้า", "path": '/shop/store'},
+    {"icon": Icons.storefront, "title": "แก้ไขร้านค้า", "path": '/shop'},
     {"icon": Icons.shopping_basket_outlined, "title": "ออเดอร์", "path": '/shop/order'},
   ];
 
