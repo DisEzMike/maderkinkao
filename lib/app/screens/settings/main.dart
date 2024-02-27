@@ -67,23 +67,17 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
             backgroundColor: Colors.grey.shade200,
           ),
           backgroundColor: Colors.grey.shade200,
-          body: ListView(
-            padding: EdgeInsets.only(top: 0),
-            physics: AlwaysScrollableScrollPhysics(),
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(kDefaultPadding),
-                child: Column(
-                  children: [
-                    UserCard(user: _currentUser!),
-                    SizedBox(height: kDefaultPadding*2),
-                    ...cards.map((e) => SettingCard(icon: e['icon'], title: e['title'], path: e['path'])).toList(),
-                    SizedBox(height: kDefaultPadding),
-                    SignOutButton(context)
-                  ]
-                ),
-              ),
-            ]
+          body: Padding(
+            padding: const EdgeInsets.all(kDefaultPadding),
+            child: Column(
+              children: [
+                UserCard(user: _currentUser!),
+                SizedBox(height: kDefaultPadding*2),
+                ...cards.map((e) => SettingCard(icon: e['icon'], title: e['title'], path: e['path'])).toList(),
+                SizedBox(height: kDefaultPadding),
+                SignOutButton(context)
+              ]
+            ),
           ),
         ),
         tablet: Scaffold(
