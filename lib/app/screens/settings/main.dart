@@ -79,7 +79,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
                     SizedBox(height: kDefaultPadding*2),
                     ...cards.map((e) => SettingCard(icon: e['icon'], title: e['title'], path: e['path'])).toList(),
                     SizedBox(height: kDefaultPadding),
-                    buildContent(context)
+                    SignOutButton(context)
                   ]
                 ),
               ),
@@ -96,7 +96,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
     );
   }
 
-  Widget buildContent(BuildContext context) {
+  Widget SignOutButton(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: signOut,
