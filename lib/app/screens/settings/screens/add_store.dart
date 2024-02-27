@@ -14,6 +14,7 @@ class AddStorePage extends StatelessWidget {
       if (_formKey.currentState!.validate()) {
         Map<String, dynamic> payload = {};
         payload['shopName'] = _controller.text;
+        payload['open'] = 0;
         print(payload);
         FirebaseFirestore database = FirebaseFirestore.instance;
         try {
