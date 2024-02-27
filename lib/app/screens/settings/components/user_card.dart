@@ -46,15 +46,13 @@ class UserCard extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(kDefaultPadding),
-                child: Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("${user.displayName}", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.3)),),
-                      Text("แก้ไขโปรไฟล", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize, fontWeight: FontWeight.w200)),)
-                    ],
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("${user.displayName}", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.3)),),
+                    Text("แก้ไขโปรไฟล", style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize, fontWeight: FontWeight.w200)),)
+                  ],
                 ),
               )
             ],

@@ -27,8 +27,6 @@
             "type": "dart",
             "deviceId": "chrome",
             "args": [
-                "--web-hostname",
-                "192.168.10.238",
                 "--web-port",
                 "5000",
                 "--web-renderer",
