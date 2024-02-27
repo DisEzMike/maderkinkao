@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:maderkinkao/app/utils/constants.dart';
-import 'package:uuid/uuid.dart';
 
 class AddStorePage extends StatelessWidget {
   const AddStorePage({super.key});
