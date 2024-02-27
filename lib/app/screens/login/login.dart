@@ -8,6 +8,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:maderkinkao/app/components/loading.dart';
 import 'package:maderkinkao/app/models/user.dart';
 import 'package:maderkinkao/app/utils/authentication.dart';
@@ -35,6 +36,7 @@ class MyLoginPage extends StatefulWidget {
 
 class _MyLoginPageState extends State<MyLoginPage> {
   bool _isLoading = false;
+  String error = "";
   @override
   void initState() {
     super.initState();
@@ -51,30 +53,37 @@ class _MyLoginPageState extends State<MyLoginPage> {
         ));
   }
 
-  void _handdleSignInWithGoogle() async {
-    setState(() {
-      _isLoading = true;
-    });
+void _handdleSignInWithGoogle() async {
+  setState(() {
+    _isLoading = true;
+  });
+  try {
     var account = await Authentication.signInWithGoogle();
 
-  bool isAuthorized = account != null;
-  if (account != null) {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('auth', isAuthorized);
+    bool isAuthorized = account != null;
+    if (account != null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('auth', isAuthorized);
 
-    User user = User(uid: account.uid, email: account.email, photoUrl: account.photoURL, displayName: account.displayName);
-    FirebaseFirestore database = FirebaseFirestore.instance;
-    CollectionReference ref = database.collection('users');
-    ref.doc(user.uid).get().then((DocumentSnapshot snapshot) {
-      if (snapshot.exists) return;
-      dynamic data = user.toJson();
-      data['role'] = 'user';
-      ref.doc(user.uid!).set(data);
+      User user = User(uid: account.uid, email: account.email, photoUrl: account.photoURL, displayName: account.displayName);
+      FirebaseFirestore database = FirebaseFirestore.instance;
+      CollectionReference ref = database.collection('users');
+      ref.doc(user.uid).get().then((DocumentSnapshot snapshot) {
+        if (snapshot.exists) return;
+        dynamic data = user.toJson();
+        data['role'] = 'user';
+        ref.doc(user.uid!).set(data);
+      });
+      prefs.setString('userId', user.uid!);
+    }
+    if (isAuthorized) {
+      context.pushReplacement('/home');
+    }
+  } catch (e) {
+    setState(() {
+      _isLoading = false;
+      error = "มีปัญหาในการเข้าสู้ระบบโปรลองอีกครั้ง";
     });
-    prefs.setString('userId', user.uid!);
-  }
-  if (isAuthorized) {
-    context.pushReplacement('/home');
   }
 }
 
@@ -93,6 +102,10 @@ class _MyLoginPageState extends State<MyLoginPage> {
               btnText: "Developer mode",
               onPressed: _handdleToDevMode
             )
+          ],
+          ...[
+            const SizedBox(height: kDefaultPadding),
+            Text("$error",style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.2, color: Colors.red)),)
           ]
       ],
     ),
