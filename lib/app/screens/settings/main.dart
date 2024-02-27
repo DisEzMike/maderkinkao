@@ -43,6 +43,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
             _currentUser = _user;
             _isLoading = false;
           });
+        // ignore: invalid_return_type_for_catch_error
         }).catchError((e) => print(e));
       } else {
         handleSignOut();
