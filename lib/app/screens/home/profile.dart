@@ -121,18 +121,18 @@ double profileHeight = 140;
             Container(
               padding: const EdgeInsets.all(kDefaultPadding+kDefaultPadding/4),
               child: GestureDetector(
-                          onTap: signOut,
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              color: Colors.deepOrange.shade500,
-                              borderRadius: BorderRadius.circular(kDefaultPadding)
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding*2, vertical: kDefaultPadding/2),
-                              child: Center(child: Text("ออกจากระบบ", style: GoogleFonts.kanit(textStyle: const TextStyle(color: Colors.white, fontSize: kDefaultFontSize*1.3, fontWeight: FontWeight.w600)))),
-                            ),
-                          ),
-                        ),
+                onTap: signOut,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: Colors.deepOrange.shade500,
+                    borderRadius: BorderRadius.circular(kDefaultPadding)
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding*2, vertical: kDefaultPadding/2),
+                    child: Center(child: Text("ออกจากระบบ", style: GoogleFonts.kanit(textStyle: const TextStyle(color: Colors.white, fontSize: kDefaultFontSize*1.3, fontWeight: FontWeight.w600)))),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

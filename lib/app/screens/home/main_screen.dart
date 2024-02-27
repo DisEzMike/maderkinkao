@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:maderkinkao/app/screens/settings/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/bottombar.dart';
 import '../store/components/profile.dart';
 import 'home.dart';
-import 'profile.dart';
 
 class MyMainScreen extends StatefulWidget {
   const MyMainScreen({super.key});
@@ -20,7 +20,8 @@ class _MyMainScreenState extends State<MyMainScreen> {
   final screens = [
     const MyHomeScreen(),
     const StoreProfile(),
-    const MyProfile(),
+    const MySettingsScreen()
+    // const MyProfile(),
     // const GoogleSignIn(),
   ];
 
