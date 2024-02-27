@@ -38,11 +38,12 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
     SharedPreferences.getInstance().then((prefs) async {
       String? userId = prefs.getString('userId');
       if (userId != null) {
-        final _user = await getUser(userId);
-        setState(() {
-          _currentUser = _user;
-          _isLoading = false;
-        });
+        getUser(userId).then((_user) {
+          setState(() {
+            _currentUser = _user;
+            _isLoading = false;
+          });
+        }).catchError((e) => print(e));
       } else {
         handleSignOut();
         context.pushReplacement('/login');

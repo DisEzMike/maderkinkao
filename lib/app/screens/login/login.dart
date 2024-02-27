@@ -65,17 +65,29 @@ void _handdleSignInWithGoogle() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setBool('auth', isAuthorized);
 
-      User user = User(uid: account.uid, email: account.email, photoUrl: account.photoURL, displayName: account.displayName);
+      User user = User(email: account.email, photoUrl: account.photoURL, displayName: account.displayName);
       FirebaseFirestore database = FirebaseFirestore.instance;
       CollectionReference ref = database.collection('users');
-      ref.doc(user.uid).get().then((DocumentSnapshot snapshot) {
-        if (snapshot.exists) return;
-        dynamic data = user.toJson();
-        data['role'] = 'user';
-        ref.doc(user.uid!).set(data);
+      ref.where("email", isEqualTo: user.email!).get().then((value) => value.docs).then((value) async {
+        if (value.isNotEmpty) {
+          await prefs.setString('userId', value[0].id);
+        } else {
+          dynamic data = user.toJson();
+          data['role'] = ['user'];
+          try {
+            final dRef = await ref.add(data);
+            data['id'] = dRef.id;
+            await ref.doc(dRef.id).update(data);
+            await prefs.setString('userId', dRef.id);
+
+            print(data);
+          } catch (e) {
+            print(e);
+          }
+        }
       });
-      prefs.setString('userId', user.uid!);
     }
+    
     if (isAuthorized) {
       context.pushReplacement('/home');
     }

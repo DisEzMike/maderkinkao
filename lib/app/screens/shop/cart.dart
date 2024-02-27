@@ -75,7 +75,7 @@ class _MyCartState extends State<MyCart> {
         "createdAt": Timestamp.fromDate(now),
         "data": menu_items.map((e) => e.toJson()),
         "price": total,
-        "userId": _currentUser!.uid,
+        "userId": _currentUser!.id,
         "status": 0,
         "queue": queue
       };

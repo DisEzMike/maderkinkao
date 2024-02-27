@@ -4,14 +4,14 @@ import 'package:meta/meta.dart';
 
 @immutable
 class User {
-  String? uid;
+  String? id;
   String? email;
   String? photoUrl;
   String? displayName;
-  String? role;
+  List? role;
 
   User({
-    this.uid,
+    this.id,
     this.email,
     this.photoUrl,
     this.displayName,
@@ -19,7 +19,7 @@ class User {
   });
 
   User.fromJson(Map<String, dynamic> json) {
-    uid = json['uid'];
+    id = json['id'];
     email = json['email'];
     photoUrl = json['photoUrl'];
     displayName = json['displayName'];
@@ -28,7 +28,7 @@ class User {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['uid'] = uid;
+    data['id'] = id;
     data['email'] = email;
     data['photoUrl'] = photoUrl;
     data['displayName'] = displayName;

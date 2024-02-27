@@ -45,10 +45,17 @@ Future<bool> handleSignOut() async {
     return !isAuth;
 }
 
-Future<User> getUser(String userId) async {
+Future<dynamic> getUser(String userId) async {
   FirebaseFirestore database = FirebaseFirestore.instance;
   CollectionReference ref = database.collection('users');
-  DocumentSnapshot snapshot = await ref.doc(userId).get();
-  return User(uid: snapshot.get('uid'), email: snapshot.get('email'), photoUrl: snapshot.get('photoUrl'), displayName: snapshot.get('displayName'), role: snapshot.get('role'));
+  try {
+    dynamic snapshot = await ref.doc(userId).get();
+    dynamic data = snapshot.data();
+    return User(id: snapshot.id, email: data['email'], photoUrl: data['photoUrl'], displayName: data['displayName'], role: data['role']);
+  } catch (e) {
+    print("object");
+    print(e);
+  }
+  return null;
 }
 
