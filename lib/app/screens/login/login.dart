@@ -11,6 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:maderkinkao/app/components/loading.dart';
 import 'package:maderkinkao/app/models/user.dart';
 import 'package:maderkinkao/app/utils/authentication.dart';
+import 'package:maderkinkao/app/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_button/sign_button.dart';
 
@@ -37,32 +38,6 @@ class _MyLoginPageState extends State<MyLoginPage> {
   @override
   void initState() {
     super.initState();
-
-    // googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) async {
-
-    //   bool isAuthorized = account != null;
-
-    //   if (kIsWeb && account != null) {
-    //     isAuthorized = await googleSignIn.canAccessScopes(scopes);
-
-      //   SharedPreferences prefs = await SharedPreferences.getInstance();
-      //   prefs.setBool('auth', isAuthorized);
-    
-      //   User user = User(uid: account.id, email: account.email, photoUrl: account.photoUrl, displayName: account.displayName);
-      //   FirebaseFirestore database = FirebaseFirestore.instance;
-      //   CollectionReference ref = database.collection('users');
-      //   ref.doc(user.uid).get().then((DocumentSnapshot snapshot) {
-      //     if (snapshot.exists) return;
-      //     dynamic data = user.toJson();
-      //     data['role'] = 'user';
-      //     ref.doc(user.uid!).set(data);
-      //   });
-      //   prefs.setString('userId', user.uid!);
-      // }
-      // if (isAuthorized) {
-      //   context.pushReplacement('/home');
-      // }
-    // });
   }
   @override
   Widget build(BuildContext context) {
@@ -111,10 +86,25 @@ class _MyLoginPageState extends State<MyLoginPage> {
         SignInButton(
           buttonType: ButtonType.google,
           onPressed: _handdleSignInWithGoogle),
+          ...[
+            const SizedBox(height: kDefaultPadding),
+            SignInButton(
+              buttonType: ButtonType.googleDark,
+              btnText: "Dev mode",
+              onPressed: _handdleToDevMode
+            )
+          ]
       ],
     ),
   );
 }
+
+  void _handdleToDevMode() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('auth', true);
+    prefs.setString('userId', "U6JSoJYVVvXqpf4IdqtPCXy1GN92");
+    context.pushReplacement('/home');
+  }
 
   void test() {
     FirebaseFirestore.instance.collection('shops').doc('1').collection('orders').orderBy('queue', descending: false).get().then((docs) {
