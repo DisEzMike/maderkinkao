@@ -1,8 +1,6 @@
 // ignore_for_file: sort_child_properties_last, prefer_const_constructors, unnecessary_new, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, prefer_typing_uninitialized_variables
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -33,34 +31,8 @@ class _StoreProfileState extends State<StoreProfile> {
     super.initState();
   }
 
-  _showDialog() {
-    return showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        title: const Text('AlertDialog Title'),
-        content: const Text('AlertDialog description'),
-        backgroundColor: Colors.white,
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => context.pop('Cancel'),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () {
-              context.pop('OK');
-            },
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
-    final shopss = shops.where((element) => element.id == 1).toList();
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       floatingActionButton: cart_list.isNotEmpty

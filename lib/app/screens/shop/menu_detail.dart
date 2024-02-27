@@ -49,7 +49,7 @@ class _MenuDetailState extends State<MenuDetail> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        leading: BackButton(color: Colors.white,),
+        leading: const BackButton(color: Colors.white,),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
