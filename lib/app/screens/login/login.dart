@@ -90,7 +90,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
             const SizedBox(height: kDefaultPadding),
             SignInButton(
               buttonType: ButtonType.googleDark,
-              btnText: "Dev mode",
+              btnText: "Developer mode",
               onPressed: _handdleToDevMode
             )
           ]
