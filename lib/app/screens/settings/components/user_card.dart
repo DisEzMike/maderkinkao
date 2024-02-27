@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:maderkinkao/app/components/loading.dart';
 import 'package:maderkinkao/app/models/user.dart';
 import 'package:maderkinkao/app/utils/constants.dart';
 
@@ -37,10 +39,14 @@ class UserCard extends StatelessWidget {
                 child: CircleAvatar(
                   radius: profileHeight / 2 + 3,
                   backgroundColor: Colors.white,
-                  child: CircleAvatar(
-                    radius: profileHeight / 2,
-                    backgroundColor: Colors.grey.shade800,
-                    backgroundImage: NetworkImage(user.photoUrl!),
+                  child: CachedNetworkImage(
+                    imageUrl: user.photoUrl!,
+                    imageBuilder:(context, imageProvider) => CircleAvatar(
+                      radius: profileHeight / 2,
+                      backgroundColor: Colors.grey.shade800,
+                      backgroundImage: imageProvider,
+                    ),
+                    placeholder: (context, url) => const Loading(),
                   ),
                 ),
               ),
