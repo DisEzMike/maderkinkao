@@ -57,8 +57,23 @@ class MyHomeScreen extends StatelessWidget {
                   ))
             ],
           ),
-          desktop: Scaffold(
-            backgroundColor: Colors.grey.shade200,
+          desktop: ListView(
+            physics: AlwaysScrollableScrollPhysics(),
+            padding:
+                const EdgeInsets.symmetric(horizontal: kDefaultPadding * 5),
+            children: [
+              SearchForm(),
+              SizedBox(
+                height: kDefaultPadding / 2,
+              ),
+              ...shops.map((e) => ShopCard(
+                    shop: e,
+                    press: () {
+                      context.push("/shop/${e.id}");
+                    },
+                    isLast: e == shops.last,
+                  ))
+            ],
           )),
     );
   }
