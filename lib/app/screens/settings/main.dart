@@ -41,6 +41,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
         getUser(userId).then((_user) {
           setState(() {
             _currentUser = _user;
+            if (_currentUser == null) context.pushReplacement('/login');
             _isLoading = false;
           });
         // ignore: invalid_return_type_for_catch_error
