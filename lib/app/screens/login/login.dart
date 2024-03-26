@@ -107,14 +107,14 @@ void _handdleSignInWithGoogle() async {
         SignInButton(
           buttonType: ButtonType.google,
           onPressed: _handdleSignInWithGoogle),
-          ...[
-            const SizedBox(height: kDefaultPadding),
-            SignInButton(
-              buttonType: ButtonType.googleDark,
-              btnText: "Developer mode",
-              onPressed: _handdleToDevMode
-            )
-          ],
+          // ...[
+          //   const SizedBox(height: kDefaultPadding),
+          //   SignInButton(
+          //     buttonType: ButtonType.googleDark,
+          //     btnText: "Developer mode",
+          //     onPressed: _handdleToDevMode
+          //   )
+          // ],
           ...[
             const SizedBox(height: kDefaultPadding),
             Text("$error",style: GoogleFonts.kanit(textStyle: const TextStyle(fontSize: kDefaultFontSize*1.2, color: Colors.red)),)
