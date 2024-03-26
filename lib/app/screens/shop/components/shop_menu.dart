@@ -77,7 +77,7 @@ class _ShopMenuState extends State<ShopMenu> {
                 _canPop = true;
                 return context.pop();
               }
-              _showDialog().then((String result) {
+              _showDialog().then((result) {
                 if (result == "OK") {
                   _canPop = true;
                   context.pop();
