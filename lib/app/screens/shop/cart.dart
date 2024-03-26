@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -108,6 +106,7 @@ class _MyCartState extends State<MyCart> {
                 context.pop(menu_items)
                 // ignore: invalid_return_type_for_catch_error
               })
+          // ignore: invalid_return_type_for_catch_error
           .catchError((e) => print(e));
       // ignore: invalid_return_type_for_catch_error
     }).catchError((e) => print(e));
