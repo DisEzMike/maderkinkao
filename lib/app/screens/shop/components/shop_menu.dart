@@ -281,7 +281,7 @@ class _ShopMenuState extends State<ShopMenu> {
                       color: Colors.yellow.shade800,
                     ),
                     Text(
-                      " ${shop.score} / 5 (${shop.review} รีวิว)",
+                      " ${shop.score} / 5",
                       style: GoogleFonts.kanit(
                           textStyle: TextStyle(fontWeight: FontWeight.w300)),
                     )

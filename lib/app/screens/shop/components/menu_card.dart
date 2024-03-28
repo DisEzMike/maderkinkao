@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:maderkinkao/app/utils/responsive.dart';
 
 import '../../../models/menu.dart';
 import '../../../utils/constants.dart';
@@ -52,7 +53,10 @@ class MenuCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(
                                   kDefaultPadding / 5), // Image border
                               child: SizedBox.fromSize(
-                                size: Size.fromRadius(65), // Image radius
+                                size: Size.fromRadius(
+                                    Responsive.isMobile(context)
+                                        ? 65
+                                        : 120), // Image radius
                                 child:
                                     Image.asset(menu.image, fit: BoxFit.cover),
                               ),
