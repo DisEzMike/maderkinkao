@@ -68,7 +68,9 @@ class MenuCard extends StatelessWidget {
                           Expanded(
                               flex: 5,
                               child: SizedBox(
-                                height: 125,
+                                height: Responsive.isMobile(context)
+                                        ? 125
+                                        : 250,
                                 // color: Colors.red,
                                 child: Column(
                                   mainAxisAlignment:
@@ -76,16 +78,23 @@ class MenuCard extends StatelessWidget {
                                   // mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                        width: 175,
+                                        width: Responsive.isMobile(context)
+                                        ? 175
+                                        : 350,
                                         child: Text(menu.name,
                                             style: GoogleFonts.kanit(
                                               textStyle: TextStyle(
                                                 fontSize:
-                                                    kDefaultFontSize * 1.2,
+                                                    Responsive.isMobile(context)
+                                                        ? kDefaultFontSize * 1.2
+                                                        : kDefaultFontSize *
+                                                            1.7,
                                               ),
                                             ))),
                                     SizedBox(
-                                      width: 175,
+                                      width: Responsive.isMobile(context)
+                                        ? 175
+                                        : 350,
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -94,15 +103,14 @@ class MenuCard extends StatelessWidget {
                                               "${menu.price.toStringAsFixed(2)} บาท",
                                               style: GoogleFonts.kanit(
                                                 textStyle: TextStyle(
-                                                    fontSize:
-                                                        kDefaultFontSize * 1.2,
+                                                    fontSize: Responsive.isMobile(context) ? kDefaultFontSize : kDefaultFontSize * 1.7,
                                                     fontWeight:
                                                         FontWeight.w500),
                                               )),
                                           if (!viewOnly)
                                             Icon(
                                               Icons.add_circle_outline,
-                                              size: kDefaultFontSize * 1.5,
+                                              size: Responsive.isMobile(context) ? kDefaultFontSize : kDefaultFontSize * 1.7,
                                               color: Colors.black,
                                             )
                                         ],
