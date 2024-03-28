@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:maderkinkao/app/utils/methods.dart';
+import 'package:maderkinkao/app/utils/responsive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
@@ -123,6 +126,10 @@ class _MyCartState extends State<MyCart> {
   @override
   Widget build(BuildContext context) {
     // print(widget.items);
+    return Responsive(mobile: mobileWidget(), tablet: mobileWidget(), desktop: desktopWidget());
+  }
+
+  Widget mobileWidget() {
     return Scaffold(
       // backgroundColor: Colors.green,
       appBar: AppBar(
@@ -197,11 +204,13 @@ class _MyCartState extends State<MyCart> {
                       'assets/images/qrcode.jpg',
                       fit: BoxFit.contain,
                       height: 350,
-                      ),
+                    ),
                   ),
-                  const SizedBox(height: kDefaultPadding,),
+                  const SizedBox(
+                    height: kDefaultPadding,
+                  ),
                   fileUploadButton(),
-                  const SizedBox(height: kDefaultPadding*5)
+                  const SizedBox(height: kDefaultPadding * 5)
                 ]
               ],
             ),
@@ -212,9 +221,104 @@ class _MyCartState extends State<MyCart> {
     );
   }
 
-// Widget buildCart(BuildContext context) {
-//     return ElevatedButton(onPressed: () {}, child: child)
-//   }
+  Widget desktopWidget() {
+    return Scaffold(
+      backgroundColor: Colors.black87,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: maxWidthMobile * 0.75),
+        child: Scaffold(
+          // backgroundColor: Colors.green,
+          appBar: AppBar(
+            centerTitle: true,
+            elevation: 5,
+            backgroundColor: Colors.deepOrange.shade500,
+            title: Text(
+              "ตะกร้าสินค้า",
+              style: GoogleFonts.kanit(
+                  textStyle: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w500)),
+            ),
+            leading: const BackButton(
+              color: Colors.white,
+            ),
+            shadowColor: Colors.black,
+          ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: kDefaultPadding,
+                      vertical: kDefaultPadding / 2),
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  children: [
+                    const SizedBox(height: kDefaultPadding),
+                    Text(
+                      "รายการอาหาร",
+                      style: GoogleFonts.kanit(
+                          textStyle: const TextStyle(
+                              fontSize: kDefaultFontSize * 1.2,
+                              fontWeight: FontWeight.w600)),
+                    ),
+                    const SizedBox(height: kDefaultPadding),
+                    ...menu_items.map((e) => CartCard(data: e)).toList(),
+                    const SizedBox(height: kDefaultPadding),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: kDefaultPadding),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("รวม",
+                              style: GoogleFonts.kanit(
+                                  textStyle: const TextStyle(
+                                      fontSize: kDefaultFontSize * 1.2,
+                                      fontWeight: FontWeight.w500))),
+                          Text("${total.toStringAsFixed(2)} บาท",
+                              style: GoogleFonts.kanit(
+                                  textStyle: const TextStyle(
+                                      fontSize: kDefaultFontSize * 1.2,
+                                      fontWeight: FontWeight.w500))),
+                        ],
+                      ),
+                    ),
+                    const Divider(),
+                    const SizedBox(height: kDefaultPadding),
+                    Text(
+                      "การชำระเงิน",
+                      style: GoogleFonts.kanit(
+                          textStyle: const TextStyle(
+                              fontSize: kDefaultFontSize * 1.2,
+                              fontWeight: FontWeight.w600)),
+                    ),
+                    const SizedBox(height: kDefaultPadding),
+                    CustomPaymentCardButton('assets/images/promptpay.png', 0),
+                    if (selectedPayment == 0) ...[
+                      Padding(
+                        padding: const EdgeInsets.all(kDefaultPadding),
+                        child: Image.asset(
+                          'assets/images/qrcode.jpg',
+                          fit: BoxFit.contain,
+                          height: 350,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: kDefaultPadding,
+                      ),
+                      fileUploadButton(),
+                      const SizedBox(height: kDefaultPadding * 5)
+                    ]
+                  ],
+                ),
+              ),
+              buildCart(context)
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget buildCart(BuildContext context) {
     return DecoratedBox(
@@ -235,7 +339,9 @@ class _MyCartState extends State<MyCart> {
             onTap: paymentCheck() ? () => _purchase() : null,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                  color: paymentCheck() ? Colors.deepOrange.shade500 : Colors.grey.shade200,
+                  color: paymentCheck()
+                      ? Colors.deepOrange.shade500
+                      : Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(kDefaultPadding)),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -352,7 +458,7 @@ class _MyCartState extends State<MyCart> {
         if (result != null) {
           // Uint8List fileBytes = result.files.first.bytes as dynamic;
           String fileName = result.files.first.name;
-          
+
           setState(() {
             isUploaded = true;
             title = fileName;

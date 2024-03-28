@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:maderkinkao/app/screens/settings/main.dart';
+import 'package:maderkinkao/app/utils/constants.dart';
+import 'package:maderkinkao/app/utils/responsive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/bottombar.dart';
@@ -46,6 +48,14 @@ class _MyMainScreenState extends State<MyMainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return Responsive(
+      mobile: mobileWidget(),
+      tablet: mobileWidget(),
+      desktop: desktopWidget()
+      );
+  }
+
+  Widget mobileWidget() {
     return Scaffold(
       appBar: currentIndex == 0 ? AppBar(
         leading: null,
@@ -54,4 +64,28 @@ class _MyMainScreenState extends State<MyMainScreen> {
       bottomNavigationBar: MyBottomBar(onTabChange: _changePage,),
     );
   }
+
+  Widget desktopWidget() {
+    return Scaffold(
+      backgroundColor: Colors.black87,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: maxWidthMobile*0.75),
+        child: Scaffold(
+          appBar: currentIndex == 0 ? AppBar(
+            leading: null,
+          ) : null,
+          body: screens[currentIndex],
+          bottomNavigationBar: MyBottomBar(onTabChange: _changePage,),
+        ),
+      ),
+    );
+  }
 }
+
+// Scaffold(
+//       appBar: currentIndex == 0 ? AppBar(
+//         leading: null,
+//       ) : null,
+//       body: screens[currentIndex],
+//       bottomNavigationBar: MyBottomBar(onTabChange: _changePage,),
+//     );

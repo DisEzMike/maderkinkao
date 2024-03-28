@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:maderkinkao/app/utils/responsive.dart';
 
 import '../../../models/cart.dart';
 import '../../../models/menu.dart';
@@ -11,7 +12,10 @@ import '../../../utils/constants.dart';
 import 'menu_card.dart';
 
 class ShopMenu extends StatefulWidget {
-  const ShopMenu({super.key, required this.id,});
+  const ShopMenu({
+    super.key,
+    required this.id,
+  });
 
   final id;
   final viewOnly = false;
@@ -96,13 +100,16 @@ class _ShopMenuState extends State<ShopMenu> {
                       FloatingActionButton(
                         // Your actual Fab
                         onPressed: () {
-                          context.push('/cart', extra: cart_list).then((data) => {
-                            if (data != null) {
-                              setState(() {
-                                cart_list = data as List<Cart>;
-                              })
-                            }
-                          });
+                          context
+                              .push('/cart', extra: cart_list)
+                              .then((data) => {
+                                    if (data != null)
+                                      {
+                                        setState(() {
+                                          cart_list = data as List<Cart>;
+                                        })
+                                      }
+                                  });
                         },
                         child: Icon(Icons.shopping_basket_rounded),
                         backgroundColor: Colors.white,
@@ -161,7 +168,9 @@ class _ShopMenuState extends State<ShopMenu> {
                           score: 4.3,
                           review: 100,
                           press: () async {
-                            final Cart? data = (await context.push("/shop/${widget.id}/${e.id}", extra: false)) as Cart?;
+                            final Cart? data = (await context.push(
+                                "/shop/${widget.id}/${e.id}",
+                                extra: false)) as Cart?;
                             if (data != null) cart_list.add(data);
                           },
                           isLast: e == menu_list.last,
@@ -213,6 +222,7 @@ class _ShopMenuState extends State<ShopMenu> {
 
         Positioned(
           top: coverHeight - 20,
+          width: Responsive.isDesktop(context) ? maxWidthTablet * 0.75 : null,
           child: Container(
             width: _size.width,
             height: kDefaultPadding * 5,
@@ -249,6 +259,7 @@ class _ShopMenuState extends State<ShopMenu> {
 
         Positioned(
           top: coverHeight,
+          width: Responsive.isDesktop(context) ? maxWidthTablet * 0.70 : null,
           child: Column(
             children: [
               // Text("${shop.name}", style: GoogleFonts.kanit(textStyle: TextStyle(fontSize: kDefaultFontSize * 2, fontWeight: FontWeight.w500)),),

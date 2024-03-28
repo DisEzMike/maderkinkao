@@ -7,15 +7,15 @@ import '../../../models/menu.dart';
 import '../../../utils/constants.dart';
 
 class MenuCard extends StatelessWidget {
-  const MenuCard(
-      {super.key,
-      required this.menu,
-      required this.score,
-      required this.review,
-      this.isLast = false,
-      required this.press,
-      this.viewOnly = false,
-      });
+  const MenuCard({
+    super.key,
+    required this.menu,
+    required this.score,
+    required this.review,
+    this.isLast = false,
+    required this.press,
+    this.viewOnly = false,
+  });
 
   final bool isLast;
   final Menu menu;
@@ -49,10 +49,12 @@ class MenuCard extends StatelessWidget {
                           Expanded(
                             flex: 4,
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(kDefaultPadding / 5), // Image border
+                              borderRadius: BorderRadius.circular(
+                                  kDefaultPadding / 5), // Image border
                               child: SizedBox.fromSize(
                                 size: Size.fromRadius(65), // Image radius
-                                child: Image.asset(menu.image, fit: BoxFit.cover),
+                                child:
+                                    Image.asset(menu.image, fit: BoxFit.cover),
                               ),
                             ),
                           ),
@@ -65,34 +67,47 @@ class MenuCard extends StatelessWidget {
                                 height: 125,
                                 // color: Colors.red,
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   // mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     SizedBox(
                                         width: 175,
-                                        child: Text(
-                                          menu.name,
-                                          style: GoogleFonts.kanit(textStyle: TextStyle(
-                                              fontSize: kDefaultFontSize * 1.2,)
-                                              ,)
-                                        )),
+                                        child: Text(menu.name,
+                                            style: GoogleFonts.kanit(
+                                              textStyle: TextStyle(
+                                                fontSize:
+                                                    kDefaultFontSize * 1.2,
+                                              ),
+                                            ))),
                                     SizedBox(
                                       width: 175,
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text("${menu.price.toStringAsFixed(2)} บาท", style: GoogleFonts.kanit(textStyle: TextStyle(
-                                              fontSize: kDefaultFontSize * 1.2,
-                                              fontWeight: FontWeight.w500),)
-                                        ),
-                                          if (!viewOnly) Icon(Icons.add_circle_outline, size: kDefaultFontSize*1.5, color: Colors.black,)
+                                          Text(
+                                              "${menu.price.toStringAsFixed(2)} บาท",
+                                              style: GoogleFonts.kanit(
+                                                textStyle: TextStyle(
+                                                    fontSize:
+                                                        kDefaultFontSize * 1.2,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              )),
+                                          if (!viewOnly)
+                                            Icon(
+                                              Icons.add_circle_outline,
+                                              size: kDefaultFontSize * 1.5,
+                                              color: Colors.black,
+                                            )
                                         ],
                                       ),
                                     ),
                                   ],
                                 ),
                               )),
-                      ],
+                        ],
                       ),
                     ],
                   ),
@@ -100,11 +115,15 @@ class MenuCard extends StatelessWidget {
               ],
             ),
           ),
-          if (!isLast) Padding(
-                    padding: const EdgeInsets.only(top: kDefaultPadding),
-                    child: Divider(),
-                  )
-                  else SizedBox(height: kDefaultPadding,)
+          if (!isLast)
+            Padding(
+              padding: const EdgeInsets.only(top: kDefaultPadding),
+              child: Divider(),
+            )
+          else
+            SizedBox(
+              height: kDefaultPadding,
+            )
         ],
       ),
     );

@@ -89,10 +89,54 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
           ),
         ),
         tablet: Scaffold(
-          backgroundColor: Colors.green,
+          appBar: AppBar(
+            title: Text("การตั้งค่า"),
+            centerTitle: true,
+            backgroundColor: Colors.grey.shade200,
+          ),
+          backgroundColor: Colors.grey.shade200,
+          body: ListView(
+            physics: AlwaysScrollableScrollPhysics(),
+            children: [
+                Padding(
+                padding: const EdgeInsets.all(kDefaultPadding),
+                child: Column(
+                  children: [
+                    UserCard(user: _currentUser!),
+                    SizedBox(height: kDefaultPadding*2),
+                    ...cards.map((e) => SettingCard(icon: e['icon'], title: e['title'], path: e['path'])).toList(),
+                    SizedBox(height: kDefaultPadding),
+                    SignOutButton(context)
+                  ]
+                ),
+              )
+            ]
+          ),
         ),
         desktop: Scaffold(
+          appBar: AppBar(
+            title: Text("การตั้งค่า"),
+            centerTitle: true,
+            backgroundColor: Colors.grey.shade200,
+          ),
           backgroundColor: Colors.grey.shade200,
+          body: ListView(
+            physics: AlwaysScrollableScrollPhysics(),
+            children: [
+                Padding(
+                padding: const EdgeInsets.all(kDefaultPadding),
+                child: Column(
+                  children: [
+                    UserCard(user: _currentUser!),
+                    SizedBox(height: kDefaultPadding*2),
+                    ...cards.map((e) => SettingCard(icon: e['icon'], title: e['title'], path: e['path'])).toList(),
+                    SizedBox(height: kDefaultPadding),
+                    SignOutButton(context)
+                  ]
+                ),
+              )
+            ]
+          ),
         )
       ),
     );
