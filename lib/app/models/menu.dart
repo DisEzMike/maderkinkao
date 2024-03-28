@@ -62,7 +62,7 @@ List demo_data = [
     "name": "test",
     "detail": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis,",
     "image": "assets/images/image.jpg",
-    "price": 5.00,
+    "price": 1.00,
     "shopId": 2
   },
 ];
