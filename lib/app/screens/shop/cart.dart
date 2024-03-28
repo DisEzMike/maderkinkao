@@ -210,7 +210,7 @@ class _MyCartState extends State<MyCart> {
                       isShowAccountDetail: false,
                       width: 350,
                       height: 350,
-                      amountDetailCustom: Text("จำนวน: $total บาท", style: GoogleFonts.kanit()),
+                      amountDetailCustom: Text("จำนวน: $total บาท", style: GoogleFonts.kanit(textStyle: const TextStyle(fontWeight: FontWeight.w600))),
                     ),
                   ),
                   const SizedBox(
