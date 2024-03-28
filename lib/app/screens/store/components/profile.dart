@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:maderkinkao/app/utils/responsive.dart';
 
 import '../../../models/cart.dart';
 import '../../../models/menu.dart';
@@ -120,6 +121,7 @@ class _StoreProfileState extends State<StoreProfile> {
 
         Positioned(
           top: coverHeight - 20,
+          width: Responsive.isDesktop(context) ? maxWidthTablet * 0.75 : null,
           child: Container(
             width: _size.width,
             height: kDefaultPadding * 5,
@@ -143,6 +145,7 @@ class _StoreProfileState extends State<StoreProfile> {
 
         Positioned(
           top: coverHeight,
+          width: Responsive.isDesktop(context) ? maxWidthTablet * 0.70 : null,
           child: Column(
             children: [
               SizedBox(
