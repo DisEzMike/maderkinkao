@@ -51,6 +51,7 @@ dependencies:
   cached_network_image: ^3.3.1
   file_picker: ^8.0.0+1
   promptpay_qrcode_generate: ^1.0.2
+  flutter_native_splash: ^2.4.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -108,7 +109,15 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: true 
-  image_path: "assets/icon/icon.png"
+  image_path: "assets/icon/maderkinkao_logo.png"
   web:
     generate: true
-    image_path: "assets/icon/icon.png"
+    image_path: "assets/icon/maderkinkao_logo.png"
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: "assets/icon/maderkinkao_logo.png"
+
+  android_12:
+    color: "#FFFFFF"
+    image: "assets/icon/maderkinkao_logo.png"
