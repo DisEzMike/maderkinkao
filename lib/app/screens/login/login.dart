@@ -110,23 +110,16 @@ class _MyLoginPageState extends State<MyLoginPage> {
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                // Center(
-                //   child: Text(
-                //     "เข้าสู่ระบบด้วย",
-                //     style: GoogleFonts.kanit(
-                //       textStyle: const TextStyle(
-                //         fontSize: kDefaultFontSize*1.5
-                //       )
-                //     ),
-                //   ),
-                // ),
+                Center(
+                  child: Image.asset("icon/maderkinkao_logo.png", width: 200,)
+                ),
                 const SizedBox(
-                  height: kDefaultPadding,
+                  height: kDefaultPadding*3,
                 ),
                 SignInButton(
                   buttonType: ButtonType.google,
                   // buttonSize: ButtonSize.small,
-                  width: 300,
+                  width: 275,
                   padding: kDefaultPadding,
                   btnText: "ดำเนินการต่อด้วย Google",
                   onPressed: _handdleSignInWithGoogle,
