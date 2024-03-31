@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers, unused_local_variable
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:maderkinkao/app/components/loading.dart';
@@ -26,10 +27,30 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
   bool _isLoading = true;
 
   List cards = [
-    {"icon": Icons.history, "title": "ประวัติการสั่งซื้อ", "path": '/user/history'},
-    {"icon": Icons.add, "title": "เพิ่มร้านค้า", "path": '/admin/shop/add'},
-    {"icon": Icons.storefront, "title": "แก้ไขร้านค้า", "path": '/shop'},
-    {"icon": Icons.shopping_basket_outlined, "title": "ออเดอร์", "path": '/shop/order'},
+    {
+      "icon": Icons.history,
+      "title": "ประวัติการสั่งซื้อ",
+      "path": '/user/history',
+      'active': false
+    },
+    {
+      "icon": Icons.add,
+      "title": "เพิ่มร้านค้า",
+      "path": '/admin/shop/add',
+      'active': false
+    },
+    {
+      "icon": Icons.storefront,
+      "title": "แก้ไขร้านค้า",
+      "path": '/shop',
+      'active': false
+    },
+    {
+      "icon": Icons.shopping_basket_outlined,
+      "title": "ออเดอร์",
+      "path": '/shop/order',
+      'active': false
+    },
   ];
 
   @override
@@ -44,7 +65,7 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
             if (_currentUser == null) context.pushReplacement('/login');
             _isLoading = false;
           });
-        // ignore: invalid_return_type_for_catch_error
+          // ignore: invalid_return_type_for_catch_error
         }).catchError((e) => print(e));
       } else {
         handleSignOut();
@@ -59,86 +80,37 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
 
     Size _size = MediaQuery.of(context).size;
 
-    return _isLoading ? Loading() : Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Responsive(
-        // Let's work on our mobile part
-        mobile: Scaffold(
-          appBar: AppBar(
-            title: Text("การตั้งค่า"),
-            centerTitle: true,
-            backgroundColor: Colors.grey.shade200,
-          ),
-          backgroundColor: Colors.grey.shade200,
-          body: ListView(
-            physics: AlwaysScrollableScrollPhysics(),
-            children: [
-                Padding(
-                padding: const EdgeInsets.all(kDefaultPadding),
-                child: Column(
-                  children: [
-                    UserCard(user: _currentUser!),
-                    SizedBox(height: kDefaultPadding*2),
-                    ...cards.map((e) => SettingCard(icon: e['icon'], title: e['title'], path: e['path'])).toList(),
-                    SizedBox(height: kDefaultPadding),
-                    SignOutButton(context)
-                  ]
-                ),
-              )
-            ]
-          ),
-        ),
-        tablet: Scaffold(
-          appBar: AppBar(
-            title: Text("การตั้งค่า"),
-            centerTitle: true,
-            backgroundColor: Colors.grey.shade200,
-          ),
-          backgroundColor: Colors.grey.shade200,
-          body: ListView(
-            physics: AlwaysScrollableScrollPhysics(),
-            children: [
-                Padding(
-                padding: const EdgeInsets.all(kDefaultPadding),
-                child: Column(
-                  children: [
-                    UserCard(user: _currentUser!),
-                    SizedBox(height: kDefaultPadding*2),
-                    ...cards.map((e) => SettingCard(icon: e['icon'], title: e['title'], path: e['path'])).toList(),
-                    SizedBox(height: kDefaultPadding),
-                    SignOutButton(context)
-                  ]
-                ),
-              )
-            ]
-          ),
-        ),
-        desktop: Scaffold(
-          appBar: AppBar(
-            title: Text("การตั้งค่า"),
-            centerTitle: true,
-            backgroundColor: Colors.grey.shade200,
-          ),
-          backgroundColor: Colors.grey.shade200,
-          body: ListView(
-            physics: AlwaysScrollableScrollPhysics(),
-            children: [
-                Padding(
-                padding: const EdgeInsets.all(kDefaultPadding),
-                child: Column(
-                  children: [
-                    UserCard(user: _currentUser!),
-                    SizedBox(height: kDefaultPadding*2),
-                    ...cards.map((e) => SettingCard(icon: e['icon'], title: e['title'], path: e['path'])).toList(),
-                    SizedBox(height: kDefaultPadding),
-                    SignOutButton(context)
-                  ]
-                ),
-              )
-            ]
-          ),
-        )
+    return _isLoading
+        ? Loading()
+        : Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: mobileWidget(),
+          );
+  }
+
+  Widget mobileWidget() {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("การตั้งค่า"),
+        centerTitle: true,
+        backgroundColor: Colors.grey.shade200,
       ),
+      backgroundColor: Colors.grey.shade200,
+      body: ListView(physics: AlwaysScrollableScrollPhysics(), children: [
+        Padding(
+          padding: const EdgeInsets.all(kDefaultPadding),
+          child: Column(children: [
+            UserCard(user: _currentUser!),
+            SizedBox(height: kDefaultPadding * 2),
+            ...cards
+                .map((e) => SettingCard(
+                    icon: e['icon'], title: e['title'], path: e['path'], active: e['active'],))
+                .toList(),
+            SizedBox(height: kDefaultPadding),
+            SignOutButton(context)
+          ]),
+        )
+      ]),
     );
   }
 
@@ -149,11 +121,18 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: Colors.deepOrange.shade500,
-          borderRadius: BorderRadius.circular(kDefaultPadding/2),
+          borderRadius: BorderRadius.circular(kDefaultPadding / 2),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding*2, vertical: kDefaultPadding/2),
-          child: Center(child: Text("ออกจากระบบ", style: GoogleFonts.kanit(textStyle: const TextStyle(color: Colors.white, fontSize: kDefaultFontSize*1.3, fontWeight: FontWeight.w600)))),
+          padding: const EdgeInsets.symmetric(
+              horizontal: kDefaultPadding * 2, vertical: kDefaultPadding / 2),
+          child: Center(
+              child: Text("ออกจากระบบ",
+                  style: GoogleFonts.kanit(
+                      textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: kDefaultFontSize * 1.3,
+                          fontWeight: FontWeight.w600)))),
         ),
       ),
     );
@@ -162,5 +141,5 @@ class _MySettingsScreenState extends State<MySettingsScreen> {
   void signOut() async {
     bool isAuth = await handleSignOut();
     context.pushReplacement('/login');
-  }  
+  }
 }

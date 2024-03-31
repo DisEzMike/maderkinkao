@@ -4,11 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:maderkinkao/app/utils/constants.dart';
 
 class SettingCard extends StatelessWidget {
-  const SettingCard({super.key, required this.icon, required this.title, required this.path});
+  const SettingCard({super.key, required this.icon, required this.title, required this.path, required this.active});
 
   final IconData icon;
   final String title;
   final dynamic path;
+  final bool active;
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +18,12 @@ class SettingCard extends StatelessWidget {
       children: [
         const SizedBox(height: kDefaultPadding/1.5),
         GestureDetector(
-          onTap: () => context.push(path),
+          onTap: active ? () => context.push(path) : null,
           child: SizedBox(
             height: profileHeight,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: Colors.white,
-                // border: Border.all(color: Colors.deepOrange.shade500),
+                color: active ? Colors.white : Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(kDefaultPadding/2),
                 boxShadow: const [
                   BoxShadow(
