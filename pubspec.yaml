@@ -109,10 +109,10 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: true 
-  image_path: "assets/icon/maderkinkao_logo.png"
+  image_path: "assets/icon/maderkinkao_logo_icon.jpg"
   web:
     generate: true
-    image_path: "assets/icon/maderkinkao_logo.png"
+    image_path: "assets/icon/maderkinkao_logo_icon.jpg"
 
 flutter_native_splash:
   color: "#FFFFFF"
