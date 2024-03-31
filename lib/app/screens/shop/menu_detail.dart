@@ -275,13 +275,13 @@ class _MenuDetailState extends State<MenuDetail> {
                       onPressed: validCheck()
                           ? () {
                               List<dynamic> option_addon = [];
-                              if (menu.option.toString() != "{}")
+                              if (menu.option.toString() != "{}") {
                                 option_addon = menu.option['item']
                                     .map((e) => option[e['id']] == 1 ? e : null)
                                     .toList()
                                     .where((e) => e != null)
                                     .toList();
-
+                              }
                               // final data = {
                               //   "menuId": menu.id,
                               //   "addon": option_addon,

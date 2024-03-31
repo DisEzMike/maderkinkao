@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, no_leading_underscores_for_local_identifiers, unused_local_variable
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:maderkinkao/app/components/loading.dart';
@@ -11,7 +10,6 @@ import 'package:maderkinkao/app/services/auth.dart';
 import 'package:maderkinkao/app/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../utils/responsive.dart';
 
 class MySettingsScreen extends StatefulWidget {
   const MySettingsScreen({super.key});
